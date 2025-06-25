@@ -6,6 +6,8 @@ import java.security.NoSuchAlgorithmException;
 import com.techdgnep.login.DataModel.External.CodeEntry;
 import com.techdgnep.login.DataModel.Database.FinalUser;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,6 +19,7 @@ public class Manager implements UserImpl {
     private final ConcurrentHashMap<String, CodeEntry> codeMap;
     private final ConcurrentHashMap<String,FinalUser> userMap;
     private final UserRepository repo;
+    private static Logger logger = LoggerFactory.getLogger(Manager.class);
 
     @Autowired
     public Manager(UserRepository repo){
@@ -79,7 +82,7 @@ public class Manager implements UserImpl {
           FinalUser repoUser = repo.save(user);
           return user.getRegisterId();
         }catch (Exception ex){
-            System.out.println(ex.getMessage());
+            logger.error("Error Saving User"+ex.getMessage());
             return -1L;
         }
     }

@@ -1,7 +1,7 @@
-package com.technp.mail.mailservice;
+package com.technp.mail.mailservice.service.impl;
 
-
-import com.technp.mail.mailservice.HelperFuctions.NumGenerator;
+import com.technp.mail.mailservice.util.NumGenerator;
+import com.technp.mail.mailservice.service.MailService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,17 +10,21 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MailService {
+public class MailServiceImpl implements MailService {
 
-    private Logger logger = LoggerFactory.getLogger(MailService.class);
+    private Logger logger = LoggerFactory.getLogger(MailServiceImpl.class);
 
+    private final JavaMailSender javaMailSender;
+
+    private final NumGenerator numGenerator;
 
     @Autowired
-    private JavaMailSender javaMailSender;
+    public MailServiceImpl(JavaMailSender javaMailSender, NumGenerator numGenerator) {
+        this.javaMailSender = javaMailSender;
+        this.numGenerator = numGenerator;
+    }
 
-    @Autowired
-    private NumGenerator numGenerator;
-
+    @Override
     public Integer SendEmail(String email) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();

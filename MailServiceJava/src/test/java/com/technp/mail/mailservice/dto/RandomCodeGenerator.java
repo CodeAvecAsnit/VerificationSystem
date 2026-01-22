@@ -1,4 +1,4 @@
-package com.technp.mail.mailservice.HelperFuctions;
+package com.technp.mail.mailservice.dto;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

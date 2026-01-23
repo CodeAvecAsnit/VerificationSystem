@@ -15,5 +15,4 @@ public class GetCode {
         String url = "http://localhost:5201/api/mail/send?email="+email;
         return restTemplate.getForObject(url,Integer.class);
     }
-
 }

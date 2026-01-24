@@ -5,7 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 
 @Configuration
 public class MailConfig {
@@ -31,5 +34,14 @@ public class MailConfig {
         props.put("mail.transport.protocol", "smtp");
 
         return mailSender;
+    }
+
+    @Bean(name = "noFilter")
+    public Set<String> noFilter(){
+        Set<String> set = new HashSet<>();
+        set.add("/connection/test");
+        set.add("/safe/key");
+        set.add("/safe/key/wow");
+        return set;
     }
 }

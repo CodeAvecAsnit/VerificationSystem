@@ -1,4 +1,4 @@
-package com.techdgnep.login.Service;
+package com.techdgnep.login.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

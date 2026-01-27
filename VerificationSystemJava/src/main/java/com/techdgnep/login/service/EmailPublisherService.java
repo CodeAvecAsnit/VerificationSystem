@@ -1,4 +1,4 @@
-package com.techdgnep.login.Service;
+package com.techdgnep.login.service;
 
 public interface EmailPublisherService {
     void publishEmail(String email);

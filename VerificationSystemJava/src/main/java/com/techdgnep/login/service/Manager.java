@@ -1,10 +1,10 @@
-package com.techdgnep.login.Service;
+package com.techdgnep.login.service;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import com.techdgnep.login.DataModel.External.CodeEntry;
-import com.techdgnep.login.DataModel.Database.FinalUser;
+import com.techdgnep.login.data.dto.CodeEntry;
+import com.techdgnep.login.data.database.ApplicationUser;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ public class Manager implements UserImpl {
     private final int MAX_ENTRIES;
     private final long TIMEOUT_MILLI;
     private final ConcurrentHashMap<String, CodeEntry> codeMap;
-    private final ConcurrentHashMap<String,FinalUser> userMap;
+    private final ConcurrentHashMap<String, ApplicationUser> userMap;
     private final UserRepository repo;
     private static Logger logger = LoggerFactory.getLogger(Manager.class);
 
@@ -30,13 +30,13 @@ public class Manager implements UserImpl {
         this.userMap = new ConcurrentHashMap<>();
     }
 
-    public boolean InsertUser(FinalUser user,int code){
+    public boolean InsertUser(ApplicationUser user, int code){
         codeMap.put(user.getEmail(), new CodeEntry(code));
         userMap.put(user.getEmail(),user);
         return true;
     }
 
-    public FinalUser checkEntry(String mail,int code) throws Exception {
+    public ApplicationUser checkEntry(String mail, int code) throws Exception {
         CodeEntry systemCode = codeMap.get(mail);
         if(systemCode==null){
             throw new Exception("User Not found");
@@ -52,7 +52,7 @@ public class Manager implements UserImpl {
             throw new Exception("Max number of Entries reached");
         }
         if(code == systemCode.getCode()){
-            FinalUser returnUser = userMap.get(mail);
+            ApplicationUser returnUser = userMap.get(mail);
             Remove(mail);
             return returnUser;
         }else return null;
@@ -77,9 +77,9 @@ public class Manager implements UserImpl {
 
     @Override
     @Transactional
-    public Long Save(FinalUser user){
+    public Long Save(ApplicationUser user){
         try{
-          FinalUser repoUser = repo.save(user);
+          ApplicationUser repoUser = repo.save(user);
           return user.getRegisterId();
         }catch (Exception ex){
             logger.error("Error Saving User"+ex.getMessage());

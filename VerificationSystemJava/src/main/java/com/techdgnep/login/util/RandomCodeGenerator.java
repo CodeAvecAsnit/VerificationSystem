@@ -1,4 +1,4 @@
-package com.techdgnep.login.test;
+package com.techdgnep.login.util;
 
 import java.util.Random;
 

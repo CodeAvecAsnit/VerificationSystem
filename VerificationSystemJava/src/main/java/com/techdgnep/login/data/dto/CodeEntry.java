@@ -1,4 +1,4 @@
-package com.techdgnep.login.DataModel.External;
+package com.techdgnep.login.data.dto;
 
 public class CodeEntry {
     private final int code;

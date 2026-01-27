@@ -1,4 +1,4 @@
-package com.techdgnep.login.Service;
+package com.techdgnep.login.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class EmailPublisherServiceImpl implements EmailPublisherService{
 
     private final Logger log = LoggerFactory.getLogger(EmailPublisherServiceImpl.class);
-    private final String kafkaTopic = "mail_event";
+    private final String kafkaTopic = "mail_events";
     private final KafkaTemplate<String,String> kafka;
 
     @Autowired

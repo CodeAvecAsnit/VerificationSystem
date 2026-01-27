@@ -1,8 +1,14 @@
 package com.techdgnep.login.data.dto;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Service;
 
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Service
 public class VerificationDTO {
     private String email;
     private int verificationCode;

@@ -2,7 +2,7 @@ package com.technp.mail.mailservice.controller;
 
 import com.technp.mail.mailservice.dto.KeyDTO;
 import com.technp.mail.mailservice.dto.PasswordDTO;
-import com.technp.mail.mailservice.service.KeyService;
+import com.technp.mail.mailservice.service.mail.KeyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;

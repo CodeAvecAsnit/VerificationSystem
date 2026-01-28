@@ -20,9 +20,10 @@ public class KafkaCodeAndMailService {
         this.mailService = mailService;
     }
 
-    @KafkaListener(topics = "ma")
+    @KafkaListener(topics = "otp_mail")
     public void listen(String verificationData) throws JsonProcessingException {
         VerificationDTO verificationDTO = objectMapper.readValue(verificationData,VerificationDTO.class);
+        log.info("Initiating mail for {}",verificationDTO.getEmail());
         mailService.sendEmail(verificationDTO);
     }
 }

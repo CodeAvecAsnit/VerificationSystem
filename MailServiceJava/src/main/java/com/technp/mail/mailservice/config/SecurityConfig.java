@@ -1,9 +1,8 @@
 package com.technp.mail.mailservice.config;
 
-import jakarta.servlet.http.HttpServletResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -37,4 +36,17 @@ public class SecurityConfig {
         return http.build();
     }
 
+    @Bean
+    public ObjectMapper objectMapper(){
+        return new ObjectMapper();
+    }
+
+    @Bean(name = "noFilter")
+    public Set<String> noFilter(){
+        Set<String> set = new HashSet<>();
+        set.add("/connection/test");
+        set.add("/safe/key");
+        set.add("/safe/key/wow");
+        return set;
+    }
 }

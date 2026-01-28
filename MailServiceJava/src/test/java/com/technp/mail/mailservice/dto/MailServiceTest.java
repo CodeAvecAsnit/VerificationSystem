@@ -1,6 +1,6 @@
 package com.technp.mail.mailservice.dto;
 
-import com.technp.mail.mailservice.service.impl.KeyServiceImpl;
+import com.technp.mail.mailservice.service.mail.impl.KeyServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

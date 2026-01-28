@@ -26,6 +26,7 @@ public class KafkaCodePublisherImpl extends Thread implements KafkaCodePublisher
     }
 
     @Async
+    @Override
     public void publishEmail(VerificationDTO verificationDTO) throws JsonProcessingException {
         String verificationJSON = objectMapper.writeValueAsString(verificationDTO);
         kafkaTemplate.send(kafkaTopic,verificationJSON);

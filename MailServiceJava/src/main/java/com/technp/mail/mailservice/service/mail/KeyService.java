@@ -1,8 +1,6 @@
-package com.technp.mail.mailservice.service;
+package com.technp.mail.mailservice.service.mail;
 
 import org.springframework.stereotype.Service;
-
-import java.security.NoSuchAlgorithmException;
 
 @Service
 public interface KeyService {

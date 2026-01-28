@@ -1,21 +1,19 @@
-package com.technp.mail.mailservice.service.impl;
+package com.technp.mail.mailservice.service.mail.impl;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class DemoMailPublisher {
-
-    Logger logger = LoggerFactory.getLogger(DemoMailPublisher.class);
 
     @KafkaListener(topics = "mail_events")
     public void listen(String email){
         int x = 1;
         int y = 2;
         int sum = x+y;
-        logger.info("{}",sum);
-        logger.debug("{} has now reached mail server and now sending the mail server.",email);
+        log.info("{}",sum);
+        log.debug("{} has now reached mail server and now sending the mail server.",email);
     }
 }

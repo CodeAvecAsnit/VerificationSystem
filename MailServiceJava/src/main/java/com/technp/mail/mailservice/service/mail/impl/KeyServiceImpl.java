@@ -1,7 +1,7 @@
-package com.technp.mail.mailservice.service.impl;
+package com.technp.mail.mailservice.service.mail.impl;
 
 import com.technp.mail.mailservice.exception.custom.CryptoOperationException;
-import com.technp.mail.mailservice.service.KeyService;
+import com.technp.mail.mailservice.service.mail.KeyService;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;

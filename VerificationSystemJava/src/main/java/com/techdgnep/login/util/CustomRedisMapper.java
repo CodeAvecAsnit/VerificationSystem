@@ -1,4 +1,4 @@
-package com.techdgnep.login.service.redis.impl;
+package com.techdgnep.login.util;
 
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.lang.NonNull;

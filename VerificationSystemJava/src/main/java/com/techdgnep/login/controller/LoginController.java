@@ -2,6 +2,7 @@ package com.techdgnep.login.controller;
 
 import com.techdgnep.login.data.dto.SignInDTO;
 import com.techdgnep.login.service.auth.LoginService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -23,9 +24,9 @@ public class LoginController {
 
 
     @PostMapping
-    public ResponseEntity<?> login(@RequestBody SignInDTO signInDTO){
-
-        return ResponseEntity.ok("Hello");
+    public ResponseEntity<?> login(@RequestBody SignInDTO signInDTO,
+                                   HttpServletResponse response){
+        return ResponseEntity.ok(loginService.login(signInDTO,response));
     }
 
 }

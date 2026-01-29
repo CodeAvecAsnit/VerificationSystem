@@ -5,6 +5,7 @@ import com.techdgnep.login.data.dto.SignInDTO;
 import com.techdgnep.login.data.dto.VerificationDTO;
 import com.techdgnep.login.data.mapper.AuthMapper;
 import com.techdgnep.login.service.redis.RedisTokenStorage;
+import com.techdgnep.login.util.CustomRedisMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -46,9 +47,15 @@ public class RedisTokenStorageImpl implements RedisTokenStorage {
                 "Registered or Code may have already expired.");
         DetailsCodeDTO userDetails = userOptional.get();
         if(userDetails.compareCode(verificationDTO.getCode())){
-            redisCache.delete(verificationDTO.getEmail());
             return true;
         } else return false;
     }
 
+    @Override
+    public DetailsCodeDTO getUserFromEmail(String email){
+        Optional<DetailsCodeDTO> detailsCodeDTO = redisCache.getOptional(email);
+        if(detailsCodeDTO.isEmpty()) throw new RuntimeException("Details not found");
+            redisCache.delete(email);
+            return detailsCodeDTO.get();
+    }
 }

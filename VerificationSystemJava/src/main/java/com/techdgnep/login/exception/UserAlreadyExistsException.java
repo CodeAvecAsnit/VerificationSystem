@@ -1,4 +1,4 @@
-package com.techdgnep.login.Exception;
+package com.techdgnep.login.exception;
 
 public class UserAlreadyExistsException extends RuntimeException {
     public UserAlreadyExistsException(String message) {

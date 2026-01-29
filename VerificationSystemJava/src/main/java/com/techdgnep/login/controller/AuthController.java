@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth/v1")
 public class AuthController {
 
-
     private final SignInService signInService;
 
     @Autowired

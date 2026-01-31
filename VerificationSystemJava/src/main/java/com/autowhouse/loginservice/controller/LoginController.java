@@ -1,0 +1,34 @@
+package com.autowhouse.loginservice.controller;
+
+import com.autowhouse.loginservice.data.dto.SignInDTO;
+import com.autowhouse.loginservice.service.auth.LoginService;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * @author : Asnit Bakhati
+ * @Date : 29th Jan,2026
+ */
+@Controller
+@RequestMapping("/api/v1/auth/login")
+public class LoginController {
+
+    private final LoginService loginService;
+
+    @Autowired
+    public LoginController(@Qualifier("loginServiceImpl") LoginService loginService) {
+        this.loginService = loginService;
+    }
+
+    @PostMapping
+    public ResponseEntity<?> login(@RequestBody SignInDTO signInDTO,
+                                   HttpServletResponse response){
+        return ResponseEntity.ok(loginService.login(signInDTO,response));
+    }
+}

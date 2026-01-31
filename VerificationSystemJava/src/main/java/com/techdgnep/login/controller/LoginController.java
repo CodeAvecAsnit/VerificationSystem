@@ -22,11 +22,9 @@ public class LoginController {
         this.loginService = loginService;
     }
 
-
     @PostMapping
     public ResponseEntity<?> login(@RequestBody SignInDTO signInDTO,
                                    HttpServletResponse response){
         return ResponseEntity.ok(loginService.login(signInDTO,response));
     }
-
 }

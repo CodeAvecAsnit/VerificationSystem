@@ -8,6 +8,5 @@ public interface RedisTokenStorage {
 
     VerificationDTO generateAndStore(SignInDTO signInDTO);
     boolean checkStorage(VerificationDTO verificationDTO);
-
     DetailsCodeDTO getUserFromEmail(String email);
 }

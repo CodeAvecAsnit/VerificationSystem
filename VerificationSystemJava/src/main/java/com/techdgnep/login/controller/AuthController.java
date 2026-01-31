@@ -29,9 +29,9 @@ public class AuthController {
         signInService.verifyStoreAndSend(userDetails);
     }
 
-    @PostMapping("/veriy")
+    @PostMapping("/verify")
     public ResponseEntity<LoginResponseDTO> userSignIn(@RequestBody VerificationDTO verificationDTO,
                                                        HttpServletResponse response) {
-       return ResponseEntity.ok(signInService.verifyCode(verificationDTO,response);
+       return ResponseEntity.ok(signInService.verifyCode(verificationDTO,response));
     }
 }

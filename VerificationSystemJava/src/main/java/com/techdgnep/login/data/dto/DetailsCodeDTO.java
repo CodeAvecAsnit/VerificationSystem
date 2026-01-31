@@ -52,10 +52,10 @@ public class DetailsCodeDTO {
         return code==userCode;
     }
 
-    public ApplicationUser build(PasswordEncoder encoder){
+    public ApplicationUser build(){
         ApplicationUser user = new ApplicationUser();
         user.setEmail(userName);
-        user.setPassword(encoder.encode(password));
+        user.setPassword(password);
         return user;
     }
 }

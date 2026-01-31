@@ -7,12 +7,12 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Service;
+import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Service
+@Setter
 public class VerificationDTO {
     @Email
     @NotBlank

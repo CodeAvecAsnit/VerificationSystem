@@ -1,4 +1,4 @@
-package com.techdgnep.login.service;
+package com.techdgnep.login.service.extras.impl;
 
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;

@@ -3,6 +3,7 @@ package com.autowhouse.loginservice.controller;
 import com.autowhouse.loginservice.data.dto.SignInDTO;
 import com.autowhouse.loginservice.service.auth.LoginService;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class LoginController {
     }
 
     @PostMapping
-    public ResponseEntity<?> login(@RequestBody SignInDTO signInDTO,
+    public ResponseEntity<?> login(@Valid @RequestBody SignInDTO signInDTO,
                                    HttpServletResponse response){
         return ResponseEntity.ok(loginService.login(signInDTO,response));
     }

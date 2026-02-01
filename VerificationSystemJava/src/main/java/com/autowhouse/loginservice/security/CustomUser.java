@@ -2,6 +2,8 @@ package com.autowhouse.loginservice.security;
 
 import com.autowhouse.loginservice.data.database.ApplicationUser;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +12,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
 public class CustomUser implements UserDetails {
 

@@ -24,10 +24,14 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**",
+                        .requestMatchers("/index.html",
+                                "/",
+                                "/auth/**",
                                 "/oauth2/**",
+                                "/oauth2/authorization/google",
                                 "api/v1/auth/*").permitAll()
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**",
+                                "/swagger-ui/**").permitAll()
                         .anyRequest().authenticated()
                 ).cors(Customizer.withDefaults())
                 .exceptionHandling(exception -> exception

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -36,12 +37,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ApplicationUser save(DetailsCodeDTO detailsCodeDTO) {
-        List<RoleTable> roleTableList = new ArrayList<>();
-        RoleTable roleTable = roleTableRepository.findByRole(Role.USER);
-        roleTableList.add(roleTable);
         ApplicationUser user = detailsCodeDTO.build();
+        user.createRoleTable();
+        RoleTable roleTable = roleTableRepository.findByRole(Role.USER);
+        user.addRoleTable(roleTable);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setUserRoles(roleTableList);
         return appUserRepository.save(user);
     }
 }

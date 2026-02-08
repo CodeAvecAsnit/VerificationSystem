@@ -11,11 +11,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+
+    private final CustomOAuthHandler customOAuthHandler;
+
+    public SecurityConfig(CustomOAuthHandler customOAuthHandler) {
+        this.customOAuthHandler = customOAuthHandler;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -29,6 +35,7 @@ public class SecurityConfig {
                                 "/auth/**",
                                 "/oauth2/**",
                                 "/oauth2/authorization/google",
+                                "/success.html",
                                 "api/v1/auth/*").permitAll()
                         .requestMatchers("/v3/api-docs/**",
                                 "/swagger-ui/**").permitAll()
@@ -40,7 +47,7 @@ public class SecurityConfig {
                             response.setContentType("application/json");
                             response.getWriter().write("{\"error\": \"Unauthorized\"}");
                         })
-                );
+                ).oauth2Login(oauth2 -> oauth2.successHandler(customOAuthHandler));
         return http.build();
     }
 

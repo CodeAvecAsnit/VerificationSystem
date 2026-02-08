@@ -7,7 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -32,5 +35,13 @@ public class ApplicationUser extends AuditTable{
     @JoinTable(name = "user_roles",
     joinColumns = @JoinColumn(name = "register_id"),
     inverseJoinColumns = @JoinColumn(referencedColumnName = "role_id"))
-    private List<RoleTable> userRoles;
+    private Set<RoleTable> userRoles;
+
+    public void createRoleTable(){
+        this.userRoles = new HashSet<>();
+    }
+
+    public void addRoleTable(RoleTable roleTable){
+        this.userRoles.add(roleTable);
+    }
 }

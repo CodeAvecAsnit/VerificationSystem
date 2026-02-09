@@ -32,4 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 
- VerificationSystemJava/src/main/resources/application-dev.properties
+VerificationSystemJava/src/main/resources/application-dev.properties

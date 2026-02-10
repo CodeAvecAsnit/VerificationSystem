@@ -21,9 +21,15 @@ public class KafkaCodeAndMailService {
     }
 
     @KafkaListener(topics = "otp_mail")
-    public void listen(String verificationData) throws JsonProcessingException {
-        VerificationDTO verificationDTO = objectMapper.readValue(verificationData,VerificationDTO.class);
-        log.info("Initiating mail for {}",verificationDTO.getEmail());
-        mailService.sendEmail(verificationDTO);
+    public void listen(String verificationData) {
+        try {
+            VerificationDTO verificationDTO = objectMapper.readValue(verificationData, VerificationDTO.class);
+            log.info("Initiating mail for {}", verificationDTO.getEmail());
+            mailService.sendEmail(verificationDTO);
+        } catch (JsonProcessingException ex) {
+            log.error("Serializing Error : {}", ex.getMessage());
+        } catch (Exception ex) {
+            log.error("Unexpected Error : ", ex.getMessage());
+        }
     }
 }

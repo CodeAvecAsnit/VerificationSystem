@@ -45,6 +45,6 @@ public class AuthController {
     @PostMapping("/resend")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void resentConfirmationMail(@Email @RequestParam String email){
-        System.out.println("Hello world");
+        signInService.resendAndStore(email);
     }
 }

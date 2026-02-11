@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/api/v1/auth")
-public class AuthController {
+public class SignInController {
 
     private final SignInService signInService;
 
     @Autowired
-    public AuthController(@Valid @Qualifier("signInServiceImpl") SignInService signInService) {
+    public SignInController(@Valid @Qualifier("signInServiceImpl") SignInService signInService) {
         this.signInService = signInService;
     }
 

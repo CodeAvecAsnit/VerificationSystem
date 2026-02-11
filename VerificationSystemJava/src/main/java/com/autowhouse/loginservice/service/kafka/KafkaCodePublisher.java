@@ -6,5 +6,5 @@ import org.springframework.scheduling.annotation.Async;
 
 public interface KafkaCodePublisher {
     @Async
-    void publishEmail(VerificationDTO verificationDTO) throws JsonProcessingException;
+    void publishEmail(VerificationDTO verificationDTO);
 }

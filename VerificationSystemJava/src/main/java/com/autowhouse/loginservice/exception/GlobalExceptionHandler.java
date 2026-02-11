@@ -5,6 +5,7 @@ import com.autowhouse.loginservice.exception.custom.UserAlreadyExistsException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -30,6 +31,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserAlreadyExistsException.class)
     public ResponseEntity<Map<String,String>> handleUserExists(UserAlreadyExistsException ex){
         return ResponseEntity.status(409).body(Map.of("Error",ex.getMessage()));
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String,String>> handleValidationError(MethodArgumentNotValidException ex){
+        return ResponseEntity.status(400).body(Map.of("Error","Invalid Input"));
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)

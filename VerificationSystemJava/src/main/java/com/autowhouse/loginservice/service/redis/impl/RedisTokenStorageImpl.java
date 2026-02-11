@@ -22,8 +22,7 @@ public class RedisTokenStorageImpl implements RedisTokenStorage {
     private final SecureRandom secureRandom;
     private final CustomRedisMapper<String,DetailsCodeDTO> redisCache;
     private final AuthMapper authMapper;
-
-
+    
     @Autowired
     public RedisTokenStorageImpl(SecureRandom secureRandom,
                                  @Qualifier("detailsCache") CustomRedisMapper<String, DetailsCodeDTO> redisCache,
@@ -47,17 +46,22 @@ public class RedisTokenStorageImpl implements RedisTokenStorage {
         if(userOptional.isEmpty()) throw new UsernameNotFoundException("User may not have been " +
                 "Registered or Code may have already expired.");
         DetailsCodeDTO userDetails = userOptional.get();
-        if(userDetails.compareCode(verificationDTO.getCode())){
-            return true;
-        } else return false;
+
+        boolean result = (userDetails.compareCode(verificationDTO.getCode()));
+        if(!result) redisCache.set(userDetails.getUserName(),userDetails,Duration.ofMinutes(5));
+        return result;
     }
 
     @Override
     public DetailsCodeDTO getUserFromEmail(String email){
         Optional<DetailsCodeDTO> detailsCodeDTO = redisCache.getOptional(email);
         if(detailsCodeDTO.isEmpty()) throw new UsernameNotFoundException("Username not found.");
-            redisCache.delete(email);
-            return detailsCodeDTO.get();
+        return detailsCodeDTO.get();
+    }
+
+    @Override
+    public void deleteUserFromEmail(String email){
+        redisCache.delete(email);
     }
 
     @Override

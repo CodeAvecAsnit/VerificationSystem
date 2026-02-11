@@ -33,3 +33,4 @@ build/
 .vscode/
 
 VerificationSystemJava/src/main/resources/application-dev.properties
+VerificationSystemJava/src/main/resources/application-dev.properties

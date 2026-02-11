@@ -21,4 +21,8 @@ public class VerificationDTO {
     @Min(100000)
     @Max(999999)
     private int code;
+
+    public void changeString(){
+        this.email+="email";
+    }
 }

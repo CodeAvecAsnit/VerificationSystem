@@ -12,6 +12,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.time.LocalDateTime;
 
 
+/**
+ * @author : Asnit Bakhati
+ * @Date : 10th Feb,2026
+ */
 @MappedSuperclass
 @AllArgsConstructor
 @NoArgsConstructor

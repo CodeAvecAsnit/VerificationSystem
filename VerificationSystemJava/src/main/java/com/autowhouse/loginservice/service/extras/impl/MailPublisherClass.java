@@ -3,6 +3,10 @@ package com.autowhouse.loginservice.service.extras.impl;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author : Asnit Bakhati
+ * @Date : 12th Feb, 2026
+ */
 @Service
 public class MailPublisherClass {
 

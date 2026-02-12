@@ -3,6 +3,10 @@ package com.autowhouse.loginservice.util;
 
 import java.security.SecureRandom;
 
+/**
+ * @author : Asnit Bakhati
+ * @Date : 12th Feb, 2026
+ */
 public class SecurePasswordGenerator {
 
     private static final String UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -13,9 +17,7 @@ public class SecurePasswordGenerator {
     private static final SecureRandom RANDOM = new SecureRandom();
 
     public static String generate(int length) {
-        if (length < 8) {
-            throw new IllegalArgumentException("Password length should be at least 8 characters");
-        }
+        if (length < 8) throw new IllegalArgumentException("Password length should be at least 8 characters");
 
         StringBuilder password = new StringBuilder(length);
         password.append(getRandomChar(UPPER));
@@ -48,6 +50,5 @@ public class SecurePasswordGenerator {
         int x = RANDOM.nextInt(1000, 10000);
         return Integer.toString(x);
     }
-
 }
 

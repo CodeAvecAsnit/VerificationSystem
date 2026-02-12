@@ -7,6 +7,7 @@ import com.autowhouse.loginservice.data.dto.PasswordDTO;
 import com.autowhouse.loginservice.data.enumeration.Role;
 import com.autowhouse.loginservice.data.repository.AppUserRepository;
 import com.autowhouse.loginservice.data.repository.RoleTableRepository;
+import com.autowhouse.loginservice.exception.custom.SamePasswordException;
 import com.autowhouse.loginservice.service.application.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -52,7 +53,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean resetPassword(PasswordDTO passwordDTO) {
-        ApplicationUser user = findUserByEmail(passwordDTO.getUserName());
+        if(passwordDTO.areSamePasswords()) throw
+            new SamePasswordException("New password cannot be same as the Old Password");
+        ApplicationUser user = findUserByEmail(passwordDTO.getEmail());
         if(passwordEncoder.matches(passwordDTO.getOldPassword(),user.getPassword())){
             user.setPassword(passwordEncoder.encode(passwordDTO.getNewPassword()));
             appUserRepository.save(user);

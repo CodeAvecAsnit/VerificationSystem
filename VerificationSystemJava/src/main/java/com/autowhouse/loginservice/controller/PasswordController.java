@@ -2,6 +2,7 @@ package com.autowhouse.loginservice.controller;
 
 import com.autowhouse.loginservice.data.dto.PasswordDTO;
 import com.autowhouse.loginservice.service.application.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +28,7 @@ public class PasswordController {
     }
 
     @PostMapping("/reset")
-    public ResponseEntity<?> resetPassword(@RequestBody PasswordDTO passwordDTO){
+    public ResponseEntity<?> resetPassword(@RequestBody @Valid PasswordDTO passwordDTO){
         if(userService.resetPassword(passwordDTO))
             return ResponseEntity.ok(Map.of("Success","Successfully changed password"));
         else return ResponseEntity.badRequest().build();

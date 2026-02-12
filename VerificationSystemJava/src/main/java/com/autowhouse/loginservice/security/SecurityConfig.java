@@ -39,6 +39,7 @@ public class SecurityConfig {
                                 "/auth/**",
                                 "/oauth2/**",
                                 "/oauth2/authorization/google",
+                                "/api/v1/auth/password/reset",
                                 "/success.html",
                                 "api/v1/auth/*").permitAll()
                         .requestMatchers("/v3/api-docs/**",

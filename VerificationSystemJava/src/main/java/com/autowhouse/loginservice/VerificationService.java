@@ -3,6 +3,10 @@ package com.autowhouse.loginservice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author : Asnit Bakhati
+ * @Date : 12th Feb, 2026
+ */
 @SpringBootApplication
 public class VerificationService {
 

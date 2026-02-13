@@ -5,6 +5,8 @@ import com.autowhouse.loginservice.data.dto.SignInDTO;
 import com.autowhouse.loginservice.data.dto.VerificationDTO;
 import com.autowhouse.loginservice.service.auth.SignInService;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -18,12 +20,12 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/api/v1/auth")
-public class AuthController {
+public class SignInController {
 
     private final SignInService signInService;
 
     @Autowired
-    public AuthController(@Qualifier("signInServiceImpl") SignInService signInService) {
+    public SignInController(@Valid @Qualifier("signInServiceImpl") SignInService signInService) {
         this.signInService = signInService;
     }
 
@@ -34,14 +36,15 @@ public class AuthController {
     }
 
     @PostMapping("/verify")
-    public ResponseEntity<LoginResponseDTO> userSignIn(@RequestBody VerificationDTO verificationDTO,
+    public ResponseEntity<LoginResponseDTO> userSignIn(@Valid @RequestBody
+                                                           VerificationDTO verificationDTO,
                                                        HttpServletResponse response) {
        return ResponseEntity.ok(signInService.verifyCode(verificationDTO,response));
     }
 
     @PostMapping("/resend")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void resentConfirmationMail(@RequestParam String email){
-        System.out.println("Hello world");
+    public void resentConfirmationMail(@Email @RequestParam String email){
+        signInService.resendAndStore(email);
     }
 }

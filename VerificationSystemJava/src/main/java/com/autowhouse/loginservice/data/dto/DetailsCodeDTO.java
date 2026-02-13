@@ -24,13 +24,15 @@ public class DetailsCodeDTO {
     @NotBlank
     private String password;
 
-    @Min(100000)
-    @Max(999999)
     private int code;
 
     private int mailsSent;
 
+    private int tries;
+
+
     public DetailsCodeDTO(){
+        this.mailsSent = 0;
         this.tries = 0;
     }
 
@@ -40,12 +42,8 @@ public class DetailsCodeDTO {
         this.userName = userName;
         this.password = password;
         this.mailsSent = 1;
+        this.tries = 0;
     }
-
-    /**
-     * for rate limiting
-     */
-    private int tries;
 
     /**
      * Compare the given code
@@ -54,7 +52,7 @@ public class DetailsCodeDTO {
      */
     public boolean compareCode(int userCode){
         if(tries>5) throw new MaxRateReachedException("Max rate reached");
-        ++tries;
+        tries++;
         return code==userCode;
     }
 
@@ -66,10 +64,10 @@ public class DetailsCodeDTO {
     }
 
     public boolean canSendMail(){
-        return mailsSent < 5;
+        return mailsSent < 4;
     }
 
     public void incrementMailTry(){
-        ++tries;
+        ++mailsSent;
     }
 }

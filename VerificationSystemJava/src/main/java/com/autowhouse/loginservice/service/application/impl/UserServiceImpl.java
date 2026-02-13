@@ -3,18 +3,25 @@ package com.autowhouse.loginservice.service.application.impl;
 import com.autowhouse.loginservice.data.database.ApplicationUser;
 import com.autowhouse.loginservice.data.database.RoleTable;
 import com.autowhouse.loginservice.data.dto.DetailsCodeDTO;
+import com.autowhouse.loginservice.data.dto.PasswordDTO;
 import com.autowhouse.loginservice.data.enumeration.Role;
 import com.autowhouse.loginservice.data.repository.AppUserRepository;
 import com.autowhouse.loginservice.data.repository.RoleTableRepository;
+import com.autowhouse.loginservice.exception.custom.SamePasswordException;
 import com.autowhouse.loginservice.service.application.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * @author : Asnit Bakhati
+ * @Date : 10th Feb,2026
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -36,12 +43,29 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public ApplicationUser save(DetailsCodeDTO detailsCodeDTO) {
-        List<RoleTable> roleTableList = new ArrayList<>();
-        RoleTable roleTable = roleTableRepository.findByRole(Role.USER);
-        roleTableList.add(roleTable);
         ApplicationUser user = detailsCodeDTO.build();
+        user.createRoleTable();
+        RoleTable roleTable = roleTableRepository.findByRole(Role.USER);
+        user.addRoleTable(roleTable);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setUserRoles(roleTableList);
         return appUserRepository.save(user);
     }
+
+    @Override
+    public boolean resetPassword(PasswordDTO passwordDTO) {
+        if(passwordDTO.areSamePasswords()) throw
+            new SamePasswordException("New password cannot be same as the Old Password");
+        ApplicationUser user = findUserByEmail(passwordDTO.getEmail());
+        if(passwordEncoder.matches(passwordDTO.getOldPassword(),user.getPassword())){
+            user.setPassword(passwordEncoder.encode(passwordDTO.getNewPassword()));
+            appUserRepository.save(user);
+            return true;
+        }else throw new BadCredentialsException("The passwords do not match.");
+    }
+
+    private ApplicationUser findUserByEmail(String email){
+        return appUserRepository.findByEmail(email).orElseThrow(()->
+                new UsernameNotFoundException("User with this email not found"));
+    }
+
 }

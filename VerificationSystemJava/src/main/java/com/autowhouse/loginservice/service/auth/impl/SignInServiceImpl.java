@@ -1,6 +1,5 @@
 package com.autowhouse.loginservice.service.auth.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.autowhouse.loginservice.data.dto.DetailsCodeDTO;
 import com.autowhouse.loginservice.data.dto.LoginResponseDTO;
 import com.autowhouse.loginservice.exception.custom.UserAlreadyExistsException;
@@ -19,6 +18,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
+/**
+ * @author : Asnit Bakhati
+ * @Date : 12th Feb, 2026
+ */
 @Service
 public class SignInServiceImpl implements SignInService {
 
@@ -40,35 +43,28 @@ public class SignInServiceImpl implements SignInService {
 
     @Override
     public void verifyStoreAndSend(SignInDTO signInDTO) {
-        try{
-        Optional<ApplicationUser> appUser = userService.findByEmail(signInDTO.getUserName());
-        if(appUser.isPresent()) throw new UserAlreadyExistsException("User already exists.");
-        VerificationDTO verificationData = redisTokenStorage.generateAndStore(signInDTO);
-        kafkaCodePublisher.publishEmail(verificationData);}
-        catch (JsonProcessingException jEx){
-            throw new RuntimeException();
-        }
+            Optional<ApplicationUser> appUser = userService.findByEmail(signInDTO.getUserName());
+            if(appUser.isPresent()) throw new UserAlreadyExistsException("User already exists.");
+            VerificationDTO verificationData = redisTokenStorage.generateAndStore(signInDTO);
+            kafkaCodePublisher.publishEmail(verificationData);
     }
 
     @Override
     public LoginResponseDTO verifyCode(VerificationDTO verifyData, HttpServletResponse response) {
         if(redisTokenStorage.checkStorage(verifyData)){
             DetailsCodeDTO userData = redisTokenStorage.getUserFromEmail(verifyData.getEmail());
+            redisTokenStorage.deleteUserFromEmail(verifyData.getEmail());
             ApplicationUser savedUser = userService.save(userData);
             String jwt = jwtUtils.generateAccessTokenFromUser(savedUser);
             attachJWT(response,jwt);
             return new LoginResponseDTO("Successfully created an account",jwt);
-        }else throw new BadCredentialsException("the code does not match");
+        }else throw new BadCredentialsException("The code does not match");
     }
 
     @Override
     public void resendAndStore(String email) {
-        try {
             VerificationDTO verificationData = redisTokenStorage.resendEmailAndStore(email);
             kafkaCodePublisher.publishEmail(verificationData);
-        }catch (JsonProcessingException jPx){
-            throw new RuntimeException();
-        }
     }
 
     public void attachJWT(HttpServletResponse response, String jwt){{

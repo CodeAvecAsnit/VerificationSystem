@@ -16,6 +16,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author : Asnit Bakhati
+ * @Date : 12th Feb, 2026
+ */
 @Slf4j
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -54,11 +58,11 @@ public class LoginServiceImpl implements LoginService {
         log.info("User {} successfully authenticated", identifier);
         String jwt = jwtUtils.generateJwtTokens(user);
         attachJwt(httpResponse, jwt);
-        return new LoginResponseDTO("Login successful", jwt);
+        return new LoginResponseDTO(jwt,"Login Successful");
         }catch (BadCredentialsException | MaxRateReachedException be){
             throw be;
         }catch (RuntimeException mEx){
-            throw new RuntimeException("Something unexpected occurred. Please try again later");
+            throw new RuntimeException("Something unexpected occurred. Please try again later.");
         }
     }
 
@@ -66,7 +70,6 @@ public class LoginServiceImpl implements LoginService {
         rateLimiter.setTries(email,++tries);
         throw new BadCredentialsException(msg);
     }
-
 
     private int validateRateLimit(String identifier) {
         int tries = rateLimiter.getTries(identifier).orElse(0);
@@ -76,7 +79,6 @@ public class LoginServiceImpl implements LoginService {
         }
         return tries;
     }
-
 
     private void attachJwt(HttpServletResponse response, String jwt){
         Cookie cookie = new Cookie(COOKIE_NAME,jwt);

@@ -10,8 +10,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import java.util.HashSet;
-import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
@@ -40,14 +38,5 @@ public class SecurityConfig {
     @Bean
     public ObjectMapper objectMapper(){
         return new ObjectMapper();
-    }
-
-    @Bean(name = "noFilter")
-    public Set<String> noFilter(){
-        Set<String> set = new HashSet<>();
-        set.add("/connection/test");
-        set.add("/safe/key");
-        set.add("/safe/key/wow");
-        return set;
     }
 }

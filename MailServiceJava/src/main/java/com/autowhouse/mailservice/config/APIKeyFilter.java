@@ -24,7 +24,7 @@ public class APIKeyFilter extends OncePerRequestFilter {
 
     private final Set<String> publicEndpoints;
 
-    public APIKeyFilter(@Qualifier("publicEndpoints") Set<String> publicEndpoints) {
+    public APIKeyFilter(@Qualifier("noFilter") Set<String> publicEndpoints) {
         this.publicEndpoints = publicEndpoints;
     }
 

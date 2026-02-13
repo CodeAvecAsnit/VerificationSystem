@@ -58,7 +58,6 @@ public class CustomRedisMapper<K, V> extends RedisTemplate<K, V> {
 
     /**
      * Set value only if key does not exist.
-
      */
     public Boolean setIfAbsent(@NonNull K key, @NonNull V value) {
         return super.opsForValue().setIfAbsent(key, value);

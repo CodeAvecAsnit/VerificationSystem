@@ -43,7 +43,7 @@ public class SignInServiceImpl implements SignInService {
 
     @Override
     public void verifyStoreAndSend(SignInDTO signInDTO) {
-            Optional<ApplicationUser> appUser = userService.findByEmail(signInDTO.getUserName());
+            Optional<ApplicationUser> appUser = userService.findByEmail(signInDTO.getEmail());
             if(appUser.isPresent()) throw new UserAlreadyExistsException("User already exists.");
             VerificationDTO verificationData = redisTokenStorage.generateAndStore(signInDTO);
             kafkaCodePublisher.publishEmail(verificationData);
@@ -57,7 +57,7 @@ public class SignInServiceImpl implements SignInService {
             ApplicationUser savedUser = userService.save(userData);
             String jwt = jwtUtils.generateAccessTokenFromUser(savedUser);
             attachJWT(response,jwt);
-            return new LoginResponseDTO("Successfully created an account",jwt);
+            return new LoginResponseDTO(jwt,"Successfully created an account");
         }else throw new BadCredentialsException("The code does not match");
     }
 

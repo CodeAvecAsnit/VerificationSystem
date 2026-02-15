@@ -40,7 +40,7 @@ public class RedisTokenStorageImpl implements RedisTokenStorage {
     public VerificationDTO generateAndStore(SignInDTO signInDTO) {
         int generatedCode = generateCode();
         DetailsCodeDTO detailsCodeDTO = authMapper.toDetailsCodeDTO(signInDTO,generatedCode);
-        redisCache.set(signInDTO.getUserName(),detailsCodeDTO, Duration.ofMinutes(5));
+        redisCache.set(signInDTO.getEmail(),detailsCodeDTO, Duration.ofMinutes(5));
         return authMapper.toVerificationDTO(detailsCodeDTO);
     }
 

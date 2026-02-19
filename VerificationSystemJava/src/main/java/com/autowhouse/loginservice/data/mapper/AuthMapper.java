@@ -11,7 +11,7 @@ public interface AuthMapper {
 
 
 
-    @Mapping(target = "userName", source = "signInDTO.userName")
+    @Mapping(target = "userName", source = "signInDTO.email")
     @Mapping(target = "password", source = "signInDTO.password")
     DetailsCodeDTO toDetailsCodeDTO(SignInDTO signInDTO, int code);
 

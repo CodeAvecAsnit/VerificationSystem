@@ -48,7 +48,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public LoginResponseDTO login(SignInDTO signIn, HttpServletResponse httpResponse) {
         try{
-        String identifier = signIn.getUserName().trim();
+        String identifier = signIn.getEmail().trim();
         int currentTries = validateRateLimit(identifier);
         CustomUser user = userService.loadUserByUsername(identifier);
         if (!passwordEncoder.matches(signIn.getPassword(), user.getPassword())) {

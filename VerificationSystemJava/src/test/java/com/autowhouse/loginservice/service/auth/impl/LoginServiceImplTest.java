@@ -55,7 +55,7 @@ class LoginServiceImplTest {
         mockUser.setUserName(EMAIL);
         mockUser.setPassword("hashed_password");
         signInDTO = new SignInDTO();
-        signInDTO.setUserName(EMAIL + " ");
+        signInDTO.setEmail(EMAIL + " ");
         signInDTO.setPassword(PASSWORD);
     }
 
@@ -115,7 +115,7 @@ class LoginServiceImplTest {
     @DisplayName("Edge Case: Should trim username input")
     void login_TrimsUsername() {
         String messyEmail = "  test@example.com  ";
-        signInDTO.setUserName(messyEmail);
+        signInDTO.setEmail(messyEmail);
 
         when(rateLimiter.getTries(EMAIL)).thenReturn(Optional.of(0));
         when(userService.loadUserByUsername(EMAIL)).thenReturn(mockUser);

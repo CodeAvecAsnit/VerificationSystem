@@ -57,7 +57,8 @@ public class UserServiceImpl implements UserService {
             new SamePasswordException("New password cannot be same as the Old Password");
         ApplicationUser user = findUserByEmail(passwordDTO.getEmail());
         if(passwordEncoder.matches(passwordDTO.getOldPassword(),user.getPassword())){
-            user.setPassword(passwordEncoder.encode(passwordDTO.getNewPassword()));
+            String newPassword = passwordDTO.getNewPassword();
+            user.setPassword(passwordEncoder.encode(newPassword));
             appUserRepository.save(user);
             return true;
         }else throw new BadCredentialsException("The passwords do not match.");
@@ -67,5 +68,4 @@ public class UserServiceImpl implements UserService {
         return appUserRepository.findByEmail(email).orElseThrow(()->
                 new UsernameNotFoundException("User with this email not found"));
     }
-
 }

@@ -16,7 +16,6 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-
     private final CustomOAuthHandler customOAuthHandler;
 
     public SecurityConfig(CustomOAuthHandler customOAuthHandler) {

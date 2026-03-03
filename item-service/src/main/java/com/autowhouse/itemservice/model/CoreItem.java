@@ -16,4 +16,7 @@ public class CoreItem {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID itemId;
 
+    @Column(name = "item_name",length = 30)
+    private String itemName;
+
 }

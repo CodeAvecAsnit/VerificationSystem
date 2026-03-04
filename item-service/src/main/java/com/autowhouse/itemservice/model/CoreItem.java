@@ -19,4 +19,6 @@ public class CoreItem {
     @Column(name = "item_name",length = 30)
     private String itemName;
 
+    @Column(name = "price")
+    private float itemPrice;
 }

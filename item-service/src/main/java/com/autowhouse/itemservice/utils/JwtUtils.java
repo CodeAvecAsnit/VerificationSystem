@@ -1,9 +1,10 @@
 package com.autowhouse.itemservice.utils;
 
+import com.autowhouse.itemservice.config.CustomUser;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
@@ -14,11 +15,10 @@ import java.util.Date;
 @Slf4j
 public class JwtUtils {
 
-
-    @Value("${jwt.secretKey}")
+    @Value("${app.jwt.secret}")
     private String jwtSecret;
 
-    @Value("${jwt.jwtExpiration}")
+    @Value("${app.jwt.auth-expiration}")
     private long jwtExpiration;
 
     private SecretKey secretKey;
@@ -79,7 +79,7 @@ public class JwtUtils {
             Jwts.parser().verifyWith((SecretKey) secretKey).build().parseSignedClaims(authToken);
             return true;
         }catch (Exception ex){
-            logger.error("Problem with the token");
+            log.error("Problem with the token");
         }
         return false;
     }

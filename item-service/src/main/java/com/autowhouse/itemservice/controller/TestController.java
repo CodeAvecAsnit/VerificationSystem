@@ -28,8 +28,9 @@ public class TestController {
     }
 
     @GetMapping("/then")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void here(){
-        System.out.println("The method has been executed");
+    public String here(){
+        String str = "The method has been executed";
+        System.out.println(str);
+        return str;
     }
 }

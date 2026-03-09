@@ -5,4 +5,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ItemServiceImpl implements ItemService {
+    @Override
+    public String test(){
+        return "Successfully saved";
+    }
 }

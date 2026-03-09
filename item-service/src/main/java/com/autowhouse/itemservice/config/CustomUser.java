@@ -13,14 +13,21 @@ import java.util.Collection;
  * @Date : 12th Feb, 2026
  */
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class CustomUser implements UserDetails {
 
     private long userId;
     private String userName;
     private String password;
     private Collection<?extends GrantedAuthority> authorities;
+
+    public CustomUser(){}
+
+    public CustomUser(long userId, String userName, String password, Collection<? extends GrantedAuthority> authorities) {
+        this.userId = userId;
+        this.userName = userName;
+        this.password = password;
+        this.authorities = authorities;
+    }
 
     public long getUserId() {
         return userId;

@@ -1,4 +1,4 @@
-package com.autowhouse.loginservice.service.kafka.impl;
+package com.autowhouse.loginservice.producers.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,4 +1,4 @@
-package com.autowhouse.loginservice.service.kafka;
+package com.autowhouse.loginservice.producer;
 
 import com.autowhouse.loginservice.data.dto.VerificationDTO;
 

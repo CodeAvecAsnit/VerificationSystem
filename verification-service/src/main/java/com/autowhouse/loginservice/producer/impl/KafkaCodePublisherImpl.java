@@ -1,4 +1,4 @@
-package com.autowhouse.loginservice.producers.impl;
+package com.autowhouse.loginservice.producer.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
